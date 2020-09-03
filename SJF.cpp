@@ -1,21 +1,14 @@
-#include "Utility.h"
-#include <limits.h>
+#include "SJF.h"
 
-void perform(std::array<Process*, PROCESS_SIZE>& processes);
+SJF::SJF() {
 
-int main(void) {
-    std::array<Process*, PROCESS_SIZE> processes = {};
-    
-    readFile(processes);
-
-    perform(processes);
-
-    calculateTurnaroundTime(processes);
-
-    printProcesses(processes);
 }
 
-void perform(std::array<Process*, PROCESS_SIZE>& processes) {
+SJF::~SJF() {
+    
+}
+
+void SJF::perform(std::array<Process*, PROCESS_SIZE>& processes) {
     Process* readyQueue[PROCESS_SIZE] = {};
     for(int i = 0; i != PROCESS_SIZE; i++) {
         readyQueue[i] = nullptr;
@@ -88,4 +81,6 @@ void perform(std::array<Process*, PROCESS_SIZE>& processes) {
     for(int i = 0; i != PROCESS_SIZE; i++) {
         processes[i]->setWaitingTime(wTime[i]);
     }
+
+    calculateTurnaroundTime(processes);
 }

@@ -1,27 +1,19 @@
-#include "Utility.h"
-#include <iostream>
-#include <vector>
+#include "RR.h"
 
-#define QUANTUM          2
-#define CONTEXT_SWITCH   0.1
+RR::RR() {
 
-void perform(std::array<Process*, PROCESS_SIZE>& processes);
-
-int main(void) {
-    std::array<Process*, PROCESS_SIZE> processes = {};
-
-    readFile(processes);
-    perform(processes);
-    calculateTurnaroundTime(processes);
-    printProcesses(processes);
 }
 
-void perform(std::array<Process*, PROCESS_SIZE>& processes) {
+RR::~RR() {
+
+}
+
+void RR::perform(std::array<Process*, PROCESS_SIZE>& processes) {
     Process* readyQueue[PROCESS_SIZE] = {};
     for(int i = 0; i != PROCESS_SIZE; i++) {
         readyQueue[i] = nullptr;
     }
-    int btRemain[PROCESS_SIZE] = {};
+    double btRemain[PROCESS_SIZE] = {};
     double wTime[PROCESS_SIZE] = {};
     int index = 0;
     int timer = 0;
@@ -35,7 +27,7 @@ void perform(std::array<Process*, PROCESS_SIZE>& processes) {
     bool done = false;
     while(!done) {
         done = true;
-        if(processes[index]->getArrivalTime() == timer) {
+        if(index < PROCESS_SIZE && processes[index]->getArrivalTime() == timer) {
             Process* toAdd = new Process(*processes[index]);
             readyQueue[index] = toAdd;
             btRemain[index] = processes[index]->burstTime();
@@ -47,11 +39,7 @@ void perform(std::array<Process*, PROCESS_SIZE>& processes) {
                 if(btRemain[i] > 0) {
                     // Apply context switch to load saved process
                     if(activeProc != 1 && readyQueue[i]->burstTime() != btRemain[i]) {
-                        for(int j = 0; j != index; j++) {
-                            if(btRemain[j] != 0) {
-                                wTime[j] += CONTEXT_SWITCH;
-                            }
-                        }
+                        btRemain[i] += CONTEXT_SWITCH;
                     }
                     if(complete != PROCESS_SIZE) {
                         done = false;
@@ -67,7 +55,8 @@ void perform(std::array<Process*, PROCESS_SIZE>& processes) {
                                     wTime[k] += 1;
                                 }
                             }
-                            if(processes[index]->getArrivalTime() == timer) {
+                            if(index < PROCESS_SIZE && processes[index]->getArrivalTime() == timer) {
+
                                 Process* toAdd = new Process(*processes[index]);
                                 readyQueue[index] = toAdd;
                                 btRemain[index] = processes[index]->burstTime();
@@ -80,11 +69,10 @@ void perform(std::array<Process*, PROCESS_SIZE>& processes) {
                         // Apply context switch to save process's state 
                         // if there are more than one process in ready queue
                         if(index != 1 && btRemain[i] != 0) {
-                            for(int j = 0; j != index; j++) {
-                                if(btRemain[j] != 0) {
-                                    wTime[j] += CONTEXT_SWITCH;
-                                }
-                            }
+                            btRemain[i] += CONTEXT_SWITCH;
+                        } else if (btRemain[i] == 0) {
+                            activeProc--;
+                            complete++;
                         }
                     } else {
                         while(count < btRemain[i]) {
@@ -96,7 +84,7 @@ void perform(std::array<Process*, PROCESS_SIZE>& processes) {
                                     wTime[k] += 1;
                                 }
                             }
-                            if(processes[index]->getArrivalTime() == timer) {
+                            if(index < PROCESS_SIZE && processes[index]->getArrivalTime() == timer) {
                                 Process* toAdd = new Process(*processes[index]);
                                 readyQueue[index] = toAdd;
                                 btRemain[index] = processes[index]->burstTime();
@@ -120,4 +108,6 @@ void perform(std::array<Process*, PROCESS_SIZE>& processes) {
     for(int i = 0; i != PROCESS_SIZE; i++) {
         processes[i]->setWaitingTime(wTime[i]);
     }
+
+    calculateTurnaroundTime(processes);
 }
