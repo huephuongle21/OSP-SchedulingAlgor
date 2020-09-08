@@ -42,11 +42,11 @@ double Process::getWaitingTime() {
 }
 
 void Process::print() {
-    std::cout << "  " << std::left << std::setw(7) << id << "  |";
-    std::cout << "  " << std::left << std::setw(7) << burst_time << "  |";
-    std::cout << "  " << std::left << std::setw(7) << arrival_time << "  |";
-    std::cout << "  " << std::left << std::setw(7) << waiting_time << "  |";
-    std::cout << "  " << std::left << std::setw(7) << turnaround_time << "  |";
+    std::cout << "  " << std::left << std::setw(4) << id << "  |";
+    std::cout << "  " << std::left << std::setw(4) << burst_time << "  |";
+    std::cout << "  " << std::left << std::setw(4) << arrival_time << "  |";
+    std::cout << "  " << std::left << std::setw(4) << waiting_time << "  |";
+    std::cout << "  " << std::left << std::setw(4) << turnaround_time << "  |";
 }
 
 int Process::getArrivalTime() {
@@ -55,4 +55,8 @@ int Process::getArrivalTime() {
 
 int Process::getId() {
     return this->id;
+}
+
+int Process::getTurnAroundTime() {
+    return this->turnaround_time;
 }

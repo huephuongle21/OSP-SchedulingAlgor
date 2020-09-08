@@ -20,17 +20,18 @@ int main(void) {
     sjf->perform(processes_sjf);
     rr->perform(processes_rr);
 
-    std::cout << "FIRST COME FIRST SERVE:\n";
+    std::cout << std::endl;
+    std::cout << C_RED << "FIRST COME FIRST SERVE:\n" << C_RESET;
     printProcesses(processes_fcfs);
+
     std::cout << std::endl;
 
-    std::cout << "SHORTEST JOB FIRST:\n";
+    std::cout << C_RED << "SHORTEST JOB FIRST:\n" << C_RESET;
     printProcesses(processes_sjf);
+
     std::cout << std::endl;
 
-    std::cout << "ROUND ROBIN:\n";
+    std::cout << C_RED << "ROUND ROBIN:\n" << C_RESET;
     printProcesses(processes_rr);
-    std::cout << std::endl;
-
-
+    
 }

@@ -13,10 +13,17 @@
 #define WT_INDEX           3
 #define TAT_INDEX          4
 
+#define C_RESET        "\033[0m"            /* Reset colour */
+#define C_RED          "\033[31m"           /* Red */
+
 void readFile(std::array<Process*, PROCESS_SIZE>& processes);
 
 void printProcesses(std::array<Process*, PROCESS_SIZE>& processes);
 
 void calculateTurnaroundTime(std::array<Process*, PROCESS_SIZE>& processes);
+
+double averageWaitingTime(std::array<Process*, PROCESS_SIZE>& processes);
+
+double averageTurnaroundTime(std::array<Process*, PROCESS_SIZE>& processes);
 
 #endif // UTILITY_H

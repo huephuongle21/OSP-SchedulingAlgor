@@ -47,3 +47,21 @@ void calculateTurnaroundTime(std::array<Process*, PROCESS_SIZE>& processes) {
             + processes[i]->burstTime());
     }
 }
+
+double averageWaitingTime(std::array<Process*, PROCESS_SIZE>& processes) {
+    double total = 0;
+    for(int i = 0; i != PROCESS_SIZE; i++) {
+        total += processes[i]->getWaitingTime();
+    }
+    total = total/PROCESS_SIZE;
+    return total;
+}
+
+double averageTurnaroundTime(std::array<Process*, PROCESS_SIZE>& processes) {
+    double total = 0;
+    for(int i = 0; i != PROCESS_SIZE; i++) {
+        total += processes[i]->getTurnAroundTime();
+    }
+    total = total/PROCESS_SIZE;
+    return total;
+}

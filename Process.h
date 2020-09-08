@@ -23,6 +23,8 @@ public:
 
    int getId();
 
+   int getTurnAroundTime();
+
 private:
     int id;
     int arrival_time;

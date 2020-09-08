@@ -16,38 +16,35 @@ void FCFS::perform(std::array<Process*, PROCESS_SIZE>& processes) {
     int btRemain[PROCESS_SIZE] = {};
     int wTime[PROCESS_SIZE] = {};
     int index = 0;
-    int timer = 0;
     int currProc = 0;
     int complete = 0;
     for(int i = 0; i != PROCESS_SIZE; i++) {
         btRemain[i] = -1;
     }
+
+    // Add the first new process to ready queue
+    Process* toAdd = new Process(*processes[index]);
+    readyQueue[index] = toAdd;
+    btRemain[index] = processes[index]->burstTime();
+    wTime[index] = 0;
+    index++;
+
+    int timer = toAdd->getArrivalTime();
+
     bool done = false;
     while(!done) {
         done = true;
-        if(processes[index]->getArrivalTime() == timer) {
-            Process* toAdd = new Process(*processes[index]);
-            readyQueue[index] = toAdd;
-            btRemain[index] = processes[index]->burstTime();
-            if(index == 0) {
-                wTime[index] = 0;
-            }
-            index++;
-        }
-        if(index == 0) {
-            timer += 1;
-            done = false;
-        } else {
+        if(currProc < index) {
             while(btRemain[currProc] != 0) {
                 timer++;
                 btRemain[currProc]--;
                 for(int i = 0; i != PROCESS_SIZE; i++) {
-                    if(readyQueue[i] != nullptr && btRemain[i] != 0 
+                    if(readyQueue[i] != nullptr && btRemain[i] > 0 
                             && i != currProc) {
                         wTime[i] += 1;
                     }
                 }
-                if(processes[index]->getArrivalTime() == timer) {
+                if(index < PROCESS_SIZE && processes[index]->getArrivalTime() == timer) {
                     Process* toAdd = new Process(*processes[index]);
                     readyQueue[index] = toAdd;
                     btRemain[index] = processes[index]->burstTime();
@@ -59,10 +56,14 @@ void FCFS::perform(std::array<Process*, PROCESS_SIZE>& processes) {
             if(complete != PROCESS_SIZE) {
                 done = false;
             }
+        } else {
+            timer++;
         }
     }
+
     for(int i = 0; i != PROCESS_SIZE; i++) {
         processes[i]->setWaitingTime(wTime[i]);
     }
+    
     calculateTurnaroundTime(processes);
 }
