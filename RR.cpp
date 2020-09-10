@@ -8,7 +8,7 @@ RR::~RR() {
 
 }
 
-void RR::perform(std::array<Process*, PROCESS_SIZE>& processes) {
+void RR::perform(Process** processes) {
     Process* readyQueue[PROCESS_SIZE] = {};
     for(int i = 0; i != PROCESS_SIZE; i++) {
         readyQueue[i] = nullptr;

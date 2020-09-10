@@ -8,9 +8,9 @@ int main(void) {
     SJF* sjf = new SJF();
     RR* rr = new RR();
 
-    std::array<Process*, PROCESS_SIZE> processes_fcfs = {};
-    std::array<Process*, PROCESS_SIZE> processes_sjf = {};
-    std::array<Process*, PROCESS_SIZE> processes_rr = {};
+    Process** processes_fcfs = new Process*[PROCESS_SIZE];
+    Process** processes_sjf = new Process*[PROCESS_SIZE];
+    Process** processes_rr = new Process*[PROCESS_SIZE];
 
     readFile(processes_fcfs);
     readFile(processes_sjf);

@@ -5,7 +5,7 @@
 #include <iomanip>
 #include "Utility.h"
 
-void readFile(std::array<Process*, PROCESS_SIZE>& processes) {
+void readFile(Process** processes) {
 
     int toSet[3] = {};
     int index = 0;
@@ -33,7 +33,7 @@ void readFile(std::array<Process*, PROCESS_SIZE>& processes) {
     }
 }
 
-void printProcesses(std::array<Process*, PROCESS_SIZE>& processes) {
+void printProcesses(Process** processes) {
     std::cout << "\n  ID\t   BT \t    AT\t     WT\t      TAT\n\n";
     for(int i = 0; i != PROCESS_SIZE; i++) {
         processes[i]->print();
@@ -41,14 +41,14 @@ void printProcesses(std::array<Process*, PROCESS_SIZE>& processes) {
     }
 }
 
-void calculateTurnaroundTime(std::array<Process*, PROCESS_SIZE>& processes) {
+void calculateTurnaroundTime(Process** processes) {
     for(int i = 0; i != PROCESS_SIZE; i++) {
         processes[i]->setTurnaroundTime(processes[i]->getWaitingTime() 
             + processes[i]->burstTime());
     }
 }
 
-double averageWaitingTime(std::array<Process*, PROCESS_SIZE>& processes) {
+double averageWaitingTime(Process** processes) {
     double total = 0;
     for(int i = 0; i != PROCESS_SIZE; i++) {
         total += processes[i]->getWaitingTime();
@@ -57,7 +57,7 @@ double averageWaitingTime(std::array<Process*, PROCESS_SIZE>& processes) {
     return total;
 }
 
-double averageTurnaroundTime(std::array<Process*, PROCESS_SIZE>& processes) {
+double averageTurnaroundTime(Process** processes) {
     double total = 0;
     for(int i = 0; i != PROCESS_SIZE; i++) {
         total += processes[i]->getTurnAroundTime();

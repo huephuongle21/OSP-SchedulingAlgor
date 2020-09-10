@@ -3,7 +3,6 @@
 
 #include "Utility.h"
 #include <iostream>
-#include <vector>
 
 #define QUANTUM          2
 #define CONTEXT_SWITCH   0.1
@@ -14,7 +13,7 @@ class RR {
     RR();
     ~RR();
 
-    void perform(std::array<Process*, PROCESS_SIZE>& processes);
+    void perform(Process** processes);
 };
 
 #endif // RR_H

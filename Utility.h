@@ -2,7 +2,6 @@
 #define UTILITY_H
 
 #include "Process.h"
-#include <array>
 
 #define PROCESS_SIZE       200
 #define NUMBER_ATTRIBUTES  5
@@ -16,14 +15,14 @@
 #define C_RESET        "\033[0m"            /* Reset colour */
 #define C_RED          "\033[31m"           /* Red */
 
-void readFile(std::array<Process*, PROCESS_SIZE>& processes);
+void readFile(Process** processes);
 
-void printProcesses(std::array<Process*, PROCESS_SIZE>& processes);
+void printProcesses(Process** processes);
 
-void calculateTurnaroundTime(std::array<Process*, PROCESS_SIZE>& processes);
+void calculateTurnaroundTime(Process** processes);
 
-double averageWaitingTime(std::array<Process*, PROCESS_SIZE>& processes);
+double averageWaitingTime(Process** processes);
 
-double averageTurnaroundTime(std::array<Process*, PROCESS_SIZE>& processes);
+double averageTurnaroundTime(Process** processes);
 
 #endif // UTILITY_H
