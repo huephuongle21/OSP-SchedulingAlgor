@@ -13,7 +13,7 @@ class FCFS {
     FCFS();
     ~FCFS();
 
-    void perform(std::array<Process*, PROCESS_SIZE>& processes);
+    void perform(Process** processes);
 
 };
 

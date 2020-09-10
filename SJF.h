@@ -10,7 +10,7 @@ class SJF {
     SJF();
     ~SJF();
 
-    void perform(std::array<Process*, PROCESS_SIZE>& processes);
+    void perform(Process** processes);
 };
 
 #endif // SJF_H
